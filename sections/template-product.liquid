@@ -1,15 +1,56 @@
+{%- comment -%}
+
+
+
+  
+{%- endcomment -%}
+
+
 <div class="max-6xl mx-auto my-8">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
     <div class="product--medias">
-      <div class="hidden md:block">
+      <div class="md:grid grid-cols-1 flex justify-start items-center gap-4 snap-x snap-mandatory overflow-x-scroll w-screen">
         {% for media in product.media %}
-          <div class="h-100 overflow-hidden p-2">
+          <div class="min-w-[400px] snap-start">
             {% render 'product-media', media: media %}
           </div>
         {% endfor %}
       </div>
     </div>
 
-    <div class="product--information"></div>
+    <div class="product--information">
+      {% form 'product', product %}
+        <div class="my-3">
+          <span class="text-xs text-gray-500">{{ product.vendor }}
+          </span>
+        </div>
+        <div class="my-3">
+          <h1 class="text-3xl text-gray-900">{{ product.title }}
+          </h1>
+        </div>
+        <div class="my-3">
+          {% assign product_price = product.selected_or_first_available_variant %}
+          <span class="text-base text-gray-500 line-through">{{ product_price.compare_at_price | money }}
+          </span>
+          <span class="text-lg text-gray-900">{{ product_price.price | money }}
+          </span>
+          {% if product_price.price < product_price.compare_at_price %}
+            <span class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">Sale</span>
+          {% endif %}
+        </div>
+        <div class="my-3">
+          {% unless product.has_only_default_variant %}
+
+            <div data-url="{{ product.url }}" data-section="{{ section.id }}">
+              {% for option in product.option_with_value%}
+                <label for="Option-{{ section.id }}-{{ forloop.index0}}">{{ option.name }}
+                </label>
+              {% endfor %}
+            </div>
+          {% endunless %}
+        </div>
+
+      {% endform %}
+    </div>
   </div>
 </div>
