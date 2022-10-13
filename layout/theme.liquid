@@ -1,7 +1,9 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    {%- comment -%}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    {%- endcomment -%}
     <title>{{ page_title }}
     </title>
     <meta charset="utf-8">
@@ -22,6 +24,8 @@
     <main role="main">
       {{ content_for_layout }}
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    {%- comment -%}
+      <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    {%- endcomment -%}
   </body>
 </html>
